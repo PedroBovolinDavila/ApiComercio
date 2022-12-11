@@ -2,6 +2,7 @@ import { User } from "@modules/users/typeorm/entities/User"
 import { UsersRepository } from "@modules/users/typeorm/repositories/UsersRepository"
 import { AppError } from "@shared/errors/AppError"
 import { compare } from "bcryptjs"
+import { sign } from "jsonwebtoken"
 import { getCustomRepository } from "typeorm"
 
 interface IRequest {
@@ -30,9 +31,14 @@ class CreateSessionUseCase {
       throw new AppError('Incorrect email/password', 401) 
     }
 
+    const token = sign({}, '40500e738240476498bc933100e67eef496d5cff', {
+      subject: user.id,
+      expiresIn: '1d'
+    })
+
     return {
       user,
-      token: 'JWT_TOKEN'
+      token
     }
   }
 }
