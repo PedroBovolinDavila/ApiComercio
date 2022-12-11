@@ -23,5 +23,4 @@ usersRoutes.post(
   createUserController.handle
 )
 
-
 export { usersRoutes }
