@@ -7,6 +7,8 @@ class ListUsersController {
 
     const users = await listUsersUseCase.execute()
 
+    console.log(req.userId);
+
     return res.status(200).json({
       message: 'Listed users',
       statusCode: 200,

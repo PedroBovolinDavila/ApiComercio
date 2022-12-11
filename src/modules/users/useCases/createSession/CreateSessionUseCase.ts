@@ -1,3 +1,4 @@
+import auth from "@config/auth"
 import { User } from "@modules/users/typeorm/entities/User"
 import { UsersRepository } from "@modules/users/typeorm/repositories/UsersRepository"
 import { AppError } from "@shared/errors/AppError"
@@ -31,9 +32,9 @@ class CreateSessionUseCase {
       throw new AppError('Incorrect email/password', 401) 
     }
 
-    const token = sign({}, '40500e738240476498bc933100e67eef496d5cff', {
+    const token = sign({}, auth.jwt.secret, {
       subject: user.id,
-      expiresIn: '1d'
+      expiresIn: auth.jwt.expiresIn
     })
 
     return {
