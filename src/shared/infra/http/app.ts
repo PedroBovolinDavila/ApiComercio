@@ -6,11 +6,14 @@ import { appRoutes } from './routes'
 import { AppError } from '@shared/errors/AppError'
 import "@shared/infra/typeorm"
 import { errors } from 'celebrate'
+import upload from '@config/upload'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+app.use('/api/avatars', express.static(upload.directory))
 
 app.use('/api', appRoutes)
 
